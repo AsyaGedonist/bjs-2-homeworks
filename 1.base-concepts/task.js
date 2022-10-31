@@ -17,21 +17,15 @@ function solveEquation(a, b, c) {
 function calculateTotalMortgage(percent, contribution, amount, date) {
 
   let totalAmount = 0;
-  let numberError = new Array;
   let lastDate = new Date(date);
   let dateToday = new Date();
 
-  if (isNaN(percent)){
-    numberError.push(`Параметр "Процентная ставка" содержит неправильное значение - ${percent}`);
-  }
-  if (isNaN(contribution)){
-    numberError.push(` Параметр "Начальный взнос" содержит неправильное значение - ${contribution}`);
-  }
-  if (isNaN(amount)){
-    numberError.push(` Параметр "Общая стоимость" содержит неправильное значение - ${amount}`);
-  }
-  if (numberError.length !== 0) {
-    return numberError;
+  if (Number.isNaN(parseInt(percent))) {
+    return(`Параметр "Процентная ставка" содержит неправильное значение "${percent}"`);
+  } else if (Number.isNaN(parseInt(contribution))) {
+    return(`Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`);
+  } else if (Number.isNaN(parseInt(amount))) {
+    return(`Параметр "Общая стоимость" содержит неправильное значение "${amount}"`);
   }
 
 // Платеж = S * (P + (P / (((1 + P)^n) - 1)))
