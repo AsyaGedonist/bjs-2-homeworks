@@ -11,12 +11,26 @@ Student.prototype.setSubject = function (subjectName) {
 Student.prototype.addMark = function (mark){  
   if (parseInt(mark) >=1 && parseInt(mark) <= 5 ){
     if (this.marks === undefined){
-      this.marks = [parseInt(mark)];
+      this.marks = [mark];
     } else {
-      this.marks.push(parseInt(mark));
+      this.marks.push(mark);
     }
   } else {
     console.log("Введена некорректная оценка");
+  }
+}
+
+Student.prototype.addMarks = function (...marks){  
+  for (let mark of marks){
+    if (parseInt(mark) >=1 && parseInt(mark) <= 5 ){
+      if (this.marks === undefined){
+        this.marks = [mark];
+      } else {
+        this.marks.push(mark);
+      } 
+    } else {
+      console.log("Введена некорректная оценка");
+    }
   }
 }
 
