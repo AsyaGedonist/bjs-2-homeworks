@@ -2,8 +2,7 @@
 function parseCount (value){
     let result = Number.parseInt(value);
     if (isNaN(result)){
-        const error = new Error("Невалидное значение");
-        throw error;
+        throw new Error("Невалидное значение");
     }
     return result;
 }
@@ -20,8 +19,7 @@ function validateCount(value){
 class Triangle {
     constructor (first, second, third){
         if (((first + second) < third) || ((first + third) < second) || ((second + third) < first)){
-            const error = new Error("Треугольник с такими сторонами не существует");
-            throw error;
+            throw new Error("Треугольник с такими сторонами не существует");
         }
         this.first = first;
         this.second = second;
@@ -43,7 +41,7 @@ function getTriangle (first, second, third){
     try {
         return new Triangle(first, second, third);
     } catch(error){
-        let triangle = new Triangle();
+        let triangle = {};
         triangle.getPerimeter = function(){
             return ("Ошибка! Треугольник не существует")
         }

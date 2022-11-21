@@ -107,15 +107,16 @@ class Student {
         this.name = name;
         this.gender = gender;
         this.age = age;
-        this.algebra = new Array();
-        this.geometry = new Array();
-        this.biology = new Array();
-        this.histoty = new Array();
+        this.marks = {};
     }
 
     addMark (mark, subject) {
         if (parseInt(mark) >=1 && parseInt(mark) <= 5){
-            this[subject].push(mark);
+            if (this.marks[subject] === undefined){
+                this.marks[subject] = [mark];
+            } else { 
+                this.marks[subject].push(mark);
+            }
         } else {
             console.log("Введена некорректная оценка");
         }
@@ -124,7 +125,7 @@ class Student {
     getAverageBySubject (subject) {
         let sum = 0;
         let count = 0;
-        this[subject].forEach(element => {
+        this.marks[subject].forEach(element => {
             sum += element;
             count ++;
         });
@@ -136,23 +137,21 @@ class Student {
     }
 
     getAverage () {
-        let subjects = new Array(this.getAverageBySubject("algebra"), this.getAverageBySubject("geometry"),
-                this.getAverageBySubject("biology"), this.getAverageBySubject("history"));
-        let sum = 0;
-        let count = 0;
-        subjects.forEach(element => {
-            if (element > 0) {
-                sum += element;
-                count ++;
-            } 
-        });
-        return sum/count;
+        let count = Object.keys(this.marks).length;
+
+        if (count > 0){ 
+            let sum = 0;
+            Object.entries(this.marks).forEach(([element]) =>{
+                sum += this.getAverageBySubject(element)
+            });
+            return sum/count;
+        } else {
+            return 0;
+        }
     }
 
     exclude (reason) {
-        delete this.algebra;
-        delete this.geometry;
-        delete this.biology;
-        delete this.histoty;
+        delete this.marks;
         this.excluded = reason;
+    }   
 }
