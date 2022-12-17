@@ -24,6 +24,23 @@ function cachingDecoratorNew(func) {
 }
 
 
-function debounceDecoratorNew(func) {
-  // Ваш код
+function debounceDecoratorNew(func, delay) {
+  let timeoutId = null;
+
+  function wrapper (...args) {
+    wrapper.allCount++;
+    if (timeoutId){
+      clearTimeout(timeoutId);
+    } else {
+      func(...args);
+      wrapper.count++;
+    }
+    timeoutId = setTimeout(()=> {        
+      wrapper.count++;
+      func(...args);
+    }, delay);
+  };
+  wrapper.count = 0;
+  wrapper.allCount = 0;
+  return wrapper;
 }
