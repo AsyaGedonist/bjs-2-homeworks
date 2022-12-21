@@ -10,8 +10,6 @@ function cachingDecoratorNew(func) {
 
     const result = func(...args);
     cache[hash] = result;
-    // keyCache.push(hash);
-
     
     if (Object.keys(cache).length > 5){
       indexCache = Object.keys(cache)[0];
