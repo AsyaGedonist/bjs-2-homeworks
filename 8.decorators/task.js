@@ -1,6 +1,5 @@
 function cachingDecoratorNew(func) {
-  let cache = [];
-  let keyCache = [];
+  let cache = {};
   
   return (...args) => {
     const hash = args.join(',');
@@ -11,12 +10,12 @@ function cachingDecoratorNew(func) {
 
     const result = func(...args);
     cache[hash] = result;
-    keyCache.push(hash);
+    // keyCache.push(hash);
 
-    if (keyCache.length > 5){
-      indexCache = keyCache[0];
+    
+    if (Object.keys(cache).length > 5){
+      indexCache = Object.keys(cache)[0];
       delete cache[indexCache];
-      keyCache.shift();
     }
 
     return ("Вычисляем: " + result);
